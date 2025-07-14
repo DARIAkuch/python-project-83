@@ -12,7 +12,6 @@ from flask import (
     url_for,
 )
 
-
 from page_analyzer.data_base import UrlRepository
 from page_analyzer.parser import get_data
 from page_analyzer.url_validator import normalize_url, validate_url
@@ -28,6 +27,7 @@ def index():
     return render_template(
         'index.html',
     )
+
 
 @app.route('/urls', methods=['POST'])
 def urls_index():
@@ -50,6 +50,7 @@ def urls_index():
     flash('Страница успешно добавлена', 'success')
     return redirect(url_for('get_url', id=id))
 
+
 @app.route('/urls/<int:id>')
 def get_url(id):
     repo = UrlRepository(DATABASE_URL)
@@ -62,6 +63,7 @@ def get_url(id):
         'url.html',
         url_info=url_info,
     )
+
 
 @app.route('/urls/<int:id>/checks', methods=['POST'])
 def get_url_data(id):
@@ -87,6 +89,7 @@ def get_url_data(id):
         url_checks=url_checks,
     )
 
+
 @app.route('/urls', methods=['GET'])
 def get_urls():
     repo = UrlRepository(DATABASE_URL)
@@ -95,6 +98,7 @@ def get_urls():
         'urls.html',
         all_urls_checks=all_urls_checks,
     )
+
 
 @app.errorhandler(404)
 def page_not_found(error):
